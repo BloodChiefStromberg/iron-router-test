@@ -1,0 +1,27 @@
+<head>
+  <title>irtest</title>
+</head>
+
+<template name="layout">
+  <h1>This should stay static!</h1>
+  {{> yield}}
+  <input type="button" value="Click" />
+  {{> yield region='searchYield'}}
+</template>
+
+<template name="main">
+	<div><p>{{greeting}} But I stay no matter what since I was hardcoded into the template!</p></div>
+</template>
+
+<template name='searchTemplate'>
+  <div><p>{{searchTerm}}</p></div>
+</template>
+
+<!-- for blaze support -->
+<!--
+<body>
+  {{#Layout template="layout"}}
+    "This content will go into the main yield region," says the docs for blaze-layout.
+  {{/Layout}}
+</body>
+-->
