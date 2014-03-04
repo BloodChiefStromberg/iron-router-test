@@ -15,9 +15,9 @@ Router.map ->
     controller: 'mainControl'
 
   @route 'search',
-    path: '/search/:s'
+    path: '/search/:s?'
     template: 'searchTemplate'
-    data: -> return searchTerm: @params.s
+    data: -> return searchTerm: if @params.s? then @param.s else 'no search!'
     controller: 'mainControl'
 
 #Template.main.greeting = -> "Welcome to irtest."
