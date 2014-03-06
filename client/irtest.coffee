@@ -1,13 +1,31 @@
+helper =  ->
+  console.log @params.s
+  @stop
+
 class @mainControl extends RouteController
   layoutTemplate: 'layout'
   waiton: ->
     return Meteor.subscribe 'TestCollection'
+  before: ->
+    console.log 'should stop after this'
+    @stop
   action: ->
     @render 'main'
     @render 'searchTemplate', to: 'searchYield'
+    console.log this
 
 Router.map ->
-	@route 'main',
+  @route 'something',
+    path: '/something'
+    where: 'server'
+    before: ->
+      console.log @
+    action: ->
+      @response.writeHead 200, {'Content-Type': 'text/html'}
+      @response.end 'hello from server!'
+
+Router.map ->
+  @route 'main',
     path: '/'
     template: 'main'
     data:
@@ -17,7 +35,9 @@ Router.map ->
   @route 'search',
     path: '/search/:s?'
     template: 'searchTemplate'
-    data: -> return searchTerm: if @params.s? then @param.s else 'no search!'
+    data: -> return searchTerm: if @params.s? then @params.s else 'no search!'
+    before: ->
+      helper.call @
     controller: 'mainControl'
 
 #Template.main.greeting = -> "Welcome to irtest."
