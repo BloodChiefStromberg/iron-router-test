@@ -15,16 +15,6 @@ class @mainControl extends RouteController
     console.log this
 
 Router.map ->
-  @route 'something',
-    path: '/something'
-    where: 'server'
-    before: ->
-      console.log @
-    action: ->
-      @response.writeHead 200, {'Content-Type': 'text/html'}
-      @response.end 'hello from server!'
-
-Router.map ->
   @route 'main',
     path: '/'
     template: 'main'
